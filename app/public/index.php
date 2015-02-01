@@ -32,6 +32,11 @@ $ymca_name = 'My YMCA';
 				display: inline-block;
 			}
 
+			.inner
+			{
+				width:160px;
+			}
+
 			.logo, .logo.scheme-1 {
 				width:160px;
 				height:130px;
@@ -72,13 +77,15 @@ $ymca_name = 'My YMCA';
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="logo scheme-<?php print $scheme; ?>"><?php print $ymca_name; ?></div>
-				<div class="title"><?php print $ymca_name; ?></div>
-				<?php if(!$link) { ?>
-					<p>Can't connect to local MySQL Server!</p>
-				<?php } else { ?>
-					<p>MySQL Server version: <?php echo mysql_get_server_info(); ?></p>
-				<?php } ?>
+				<div class="inner">
+					<div class="logo scheme-<?php print $scheme; ?>"><?php print $ymca_name; ?></div>
+					<div class="title"><?php print $ymca_name; ?></div>
+					<?php if(!$link) { ?>
+						<p>Can't connect to local MySQL Server!</p>
+					<?php } else { ?>
+						<p>mysql version: <?php echo mysql_get_server_info(); ?></p>
+					<?php } ?>
+				</div>
 			</div>
 		</div>
 	</body>
