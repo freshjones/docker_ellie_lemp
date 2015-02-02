@@ -5,7 +5,7 @@ SITECOLOR=$2
 SITETEMPLATE=$3
 
 echo "cd into app"
-cd /app/laravel
+cd /app
 
 echo "run laravel site initialize"
 php artisan site:initialize "$SITENAME" "$SITECOLOR" "$SITETEMPLATE"

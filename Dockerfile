@@ -13,6 +13,18 @@ RUN git clone https://github.com/freshjones/ellie_webapp.git /app
 #change permissions on storage dir
 RUN chown -R www-data:www-data /app/storage
 
+#change permissions on storage dir
+COPY laravel/.env /app/.env
+
+#install scripts
+ADD scripts/ /scripts/
+
+#run install script
+RUN chmod +x /scripts/*.sh
+
+#run laravel install
+RUN /bin/bash /scripts/database_install.sh
+
 #expose some volumes
 VOLUME ["/app/storage","/var/lib/mysql"]
 
