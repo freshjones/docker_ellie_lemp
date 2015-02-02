@@ -7,9 +7,6 @@ MAINTAINER William Jones <billy@freshjones.com>
 #remove existing app
 RUN rm -rf /app
 
-# Remove pre-installed database
-RUN rm -rf /var/lib/mysql/*
-
 #clone in the app
 RUN git clone https://github.com/freshjones/ellie_webapp.git /app
 
@@ -26,7 +23,7 @@ ADD scripts/ /scripts/
 RUN chmod +x /scripts/*.sh
 
 #run install db script
-RUN /scripts/database_init.sh
+RUN /scripts/database_install.sh
 
 #expose some volumes
 VOLUME ["/app/storage", "/var/lib/mysql"]
