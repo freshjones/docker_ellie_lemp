@@ -4,15 +4,14 @@ FROM freshjones/lemp:latest
 # File Author / Maintainer
 MAINTAINER William Jones <billy@freshjones.com>
 
-#change for laravel install
-RUN sed -i -e "s|root /app/public;|root /app/laravel/public;|g" /etc/nginx/sites-enabled/default
-
-#copy in the app
-COPY app/ /app/
+#clone in the app
+RUN git clone https://github.com/freshjones/ellie_webapp.git /app
 
 #change permissions on storage dir
 RUN chown -R www-data:www-data /app/storage
 
+#expose some volumes
 VOLUME ["/app/storage","/var/lib/mysql"]
 
+#default command
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
