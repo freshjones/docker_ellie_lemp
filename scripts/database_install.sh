@@ -6,12 +6,29 @@ RET=1
 while [[ RET -ne 0 ]]; do
     echo "=> Waiting for confirmation of MySQL service startup"
     sleep 5
-    mysql -uroot -pwelcome -e "status" > /dev/null 2>&1
+    mysql -uroot -e "status" > /dev/null 2>&1
     RET=$?
 done
 
-mysql -uroot -pwelcome -e "CREATE DATABASE elliesite;"
-mysql -uroot -pwelcome -e "GRANT ALL PRIVILEGES ON elliesite.* TO 'admin'@'localhost' IDENTIFIED BY 'welcome'; FLUSH PRIVILEGES;"
+#ADMINPASS=$(pwgen -s 12 1)
+ADMINPASS=welcome
+
+echo "=> Creating MySQL admin user with random password"
+
+mysql -uroot -e "CREATE DATABASE elliesite;"
+mysql -uroot -e "CREATE USER 'admin'@'%' IDENTIFIED BY '$ADMINPASS'"
+mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION"
+
+echo "=> Done!"
+
+echo "========================================================================"
+echo "You can now connect to this MySQL Server using:"
+echo ""
+echo "    mysql -uadmin -p$ADMINPASS -h<host> -P<port>"
+echo ""
+echo "Please remember to change the above password as soon as possible!"
+echo "MySQL user 'root' has no password but only allows local connections"
+echo "========================================================================"
 
 echo "cd into app"
 cd /app
@@ -19,5 +36,11 @@ cd /app
 echo "run migration script"
 php artisan migrate
 
-echo "shutdown mysql"
-mysqladmin -uroot -pwelcome shutdown
+echo "secure root"
+#ROOTPASS=$(pwgen -s 12 1)
+ROOTPASS=welcome
+
+mysqladmin -u root password $ROOTPASS
+
+echo "Root pwd is $ROOTPASS"
+mysqladmin -uroot -p$ROOTPASS shutdown

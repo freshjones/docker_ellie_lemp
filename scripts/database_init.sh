@@ -1,13 +1,8 @@
 #!/bin/bash
 
-VOLUME_HOME="/var/lib/mysql"
+echo "Initializing mysql"
+mysql_install_db > /dev/null 2>&1
 
-if [[ ! -d $VOLUME_HOME/mysql ]]; then
-    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
-    echo "=> Installing MySQL ..."
-    mysql_install_db > /dev/null 2>&1
-else
-    echo "=> Using an existing volume of MySQL"
-fi
-
+echo "creating new admin user"
 /scripts/database_install.sh
+
