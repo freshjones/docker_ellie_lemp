@@ -4,6 +4,9 @@ FROM freshjones/lemp:latest
 # File Author / Maintainer
 MAINTAINER William Jones <billy@freshjones.com>
 
+#remove existing app
+RUN rm -rf /app
+
 #clone in the app
 RUN git clone https://github.com/freshjones/ellie_webapp.git /app
 
