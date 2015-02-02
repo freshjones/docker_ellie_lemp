@@ -26,7 +26,7 @@ RUN chmod +x /scripts/*.sh
 RUN /bin/bash /scripts/database_install.sh
 
 #expose some volumes
-VOLUME ["/app/storage","/var/lib/mysql"]
+VOLUME ["/app/storage"]
 
 #default command
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
