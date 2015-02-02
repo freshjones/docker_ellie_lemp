@@ -22,11 +22,11 @@ ADD scripts/ /scripts/
 #run install script
 RUN chmod +x /scripts/*.sh
 
-#run laravel install
-RUN /bin/bash /scripts/database_install.sh
+#run install db script
+RUN /scripts/database_init.sh
 
 #expose some volumes
-VOLUME ["/app/storage","/var/lib/mysql"]
+VOLUME ["/app/storage"]
 
 #default command
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

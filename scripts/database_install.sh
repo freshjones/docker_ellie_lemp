@@ -19,5 +19,5 @@ cd /app
 echo "run migration script"
 php artisan migrate
 
-echo "Root pwd is $ROOTPASS"
+echo "shutdown mysql"
 mysqladmin -uroot -pwelcome shutdown
