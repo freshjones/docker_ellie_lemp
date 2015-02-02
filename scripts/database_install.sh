@@ -19,8 +19,5 @@ cd /app
 echo "run migration script"
 php artisan migrate
 
-echo "generate app key"
-php artisan key:generate
-
 echo "shutdown mysql"
 mysqladmin -uroot -pwelcome shutdown
